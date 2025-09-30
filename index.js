@@ -24,7 +24,7 @@ if(arg[0] == "GET"){
         }
         if(arg1[0] == "products" && cantarg1 == 2)
         {
-            console.log("El priducto " + arg1[1] + " es el solicitado");
+            //console.log("El priducto " + arg1[1] + " es el solicitado");
             await obtenerProducto(arg1[1]);
         }
         if(arg1[0] != "products" || cantarg1 > 2)
@@ -44,7 +44,7 @@ if(arg[0] == "POST"){
     {
         if(arg[1] == "products" && cantarg == 7)
         {
-            console.log("Se agrego el producto");
+            //console.log("Se agrego el producto");
             
             const imgs = [];
             imgs.push(arg[6]);
@@ -78,7 +78,7 @@ if(arg[0] == "DELETE"){
     {
         if(arg1[0] == "products" && cantarg1 == 2)
         {
-            console.log("El priducto " + arg1[1] + " fue borrado con exito");
+            //console.log("El priducto " + arg1[1] + " fue borrado con exito");
             await eliminarProducto(arg1[1]);
         }
         if(arg1[0] != "products" || cantarg1 != 2)
