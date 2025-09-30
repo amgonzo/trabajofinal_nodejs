@@ -1,4 +1,5 @@
 const url = "https://api.escuelajs.co/api/v1/products"
+
 export async function obtenerProductos () {
     try{   
         const response = await fetch(url,{
