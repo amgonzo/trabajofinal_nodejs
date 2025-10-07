@@ -1,3 +1,6 @@
+Referencias
+https://api.escuelajs.co/docs
+
 url = "https://api.escuelajs.co/api/v1/products"
 
 Obtener todos los productos
