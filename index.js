@@ -1,91 +1,41 @@
-import { obtenerProductos, obtenerProducto, agregarProducto, eliminarProducto } from "./api.js";
+import express from "express"
+import cors from "cors"
+import productroute from "./src/routes/products.routes.js"
+import authroute from "./src/routes/auth.routes.js"
+import 'dotenv/config';
+import { authentication } from "./src/middleware/authentication.js"
 
-
-const arg = process.argv.slice(2)
-//console.log(arg)
-
-if (arg == undefined)
-{
-    console.log("sin argumentos validos");
-    exit;
+const app = express()
+const PORT = process.env.PORT || 3000;
+const corsConfig = {
+    origin: ['http://localhost:3000', 'https://midominio.com'], // dominios permitidos
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],                  // métodos permitidos
+    allowedHeaders: ['Content-Type', 'Authorization'],          // cabeceras permitidas
+    exposedHeaders: ['Content-Length'],                         // cabeceras visibles al cliente
+    credentials: true,                                          // habilitar credenciales
+    maxAge: 600,                                                // cache preflight
+    optionsSuccessStatus: 204                                   // respuesta preflight exitosa
 }
 
- //Get todos los productos o uno solo
-if(arg[0] == "GET"){
-    const arg1 = arg[1].split('/');
-    const cantarg1 = arg1.length;
-    
-    if(cantarg1 > 0)
-    {
-        if(arg1[0] == "products" && cantarg1 == 1)
-        {
-            console.log("todos los productos");
-            await obtenerProductos();
-        }
-        if(arg1[0] == "products" && cantarg1 == 2)
-        {
-            //console.log("El priducto " + arg1[1] + " es el solicitado");
-            await obtenerProducto(arg1[1]);
-        }
-        if(arg1[0] != "products" || cantarg1 > 2)
-        {
-            console.log("error falta argumento products");
-        }
+app.use(express.json());
 
-    }
-    else{console.log("error GET falta argumento products")}
-}
+app.use(cors(corsConfig))
 
-//POST crear un producto
-if(arg[0] == "POST"){    
-    const cantarg = arg.length;
-    
-    if(cantarg > 1)
-    {
-        if(arg[1] == "products" && cantarg == 7)
-        {
-            //console.log("Se agrego el producto");
-            
-            const imgs = [];
-            imgs.push(arg[6]);
+app.use((req, res, next) => {
+    //console.log(`Datos received at:  ${req.method} ${req.url}`);
+    next();
+});
 
-            const producto = {
-                "title": arg[2],
-                "price": arg[3],
-                "description": arg[4],
-                "categoryId": arg[5],
-                "images": imgs
-            }
-            await agregarProducto(producto);
-        }
-        else
-        {
-            console.log("datos del producto incompletos");
-        }
-    }
-    else
-        {
-            console.log("error POST falta argumento products");
-        }
-}
+app.use("/api", authroute)
 
-//DELETE eliminar un producto
-if(arg[0] == "DELETE"){    
-    const arg1 = arg[1].split('/');
-    const cantarg1 = arg1.length;
-    
-    if(cantarg1 > 0)
-    {
-        if(arg1[0] == "products" && cantarg1 == 2)
-        {
-            //console.log("El priducto " + arg1[1] + " fue borrado con exito");
-            await eliminarProducto(arg1[1]);
-        }
-        if(arg1[0] != "products" || cantarg1 != 2)
-        {
-            console.log("error mal argumento products");
-        }
+app.use(authentication);
 
-    }
-    else{console.log("error DELETE argumento products")}
-}
+app.use("/api", productroute)
+
+app.use((req, res, next) => {
+    res.status(404).send('Recurso no encontrado o ruta inválida');
+});
+
+app.listen(PORT, () => {
+    console.log(`Servidor corriendo en http://localhost:${PORT}`)
+})
