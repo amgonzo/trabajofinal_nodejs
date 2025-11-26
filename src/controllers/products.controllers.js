@@ -3,10 +3,9 @@ import * as productService from "../services/products.services.js"
 export const getAllProducts = async (req, res) => {
     try{
         const products = await productService.getAllProductsService()
-        console.log(products)
         res.status(200).json(products);
     }catch(error){
-        res.status(500)
+        res.status(500).send()
     }
 };
 
@@ -24,7 +23,7 @@ export const getProductById = async (req, res) => {
             res.status(400).json(error)
         }
     }catch(error){
-        res.status(500)
+        res.status(500).send()
     }
 };
 
@@ -33,12 +32,12 @@ export const deleteProductById = async (req, res) => {
         const id = req.params.id;
         if (id){
             await productService.deleteProductByIdService(id)
-            res.status(200)
+            res.status(200).send()
         }else{
             res.status(404).json(error)
         }
     }catch(error){
-        res.status(500)
+        res.status(500).send()
     }
 };
 
@@ -57,7 +56,7 @@ export const addProduct = async (req, res) => {
             res.status(400);
         }
     }catch(error){
-        res.status(500)
+        res.status(500).send()
     }
 };
 
@@ -75,9 +74,9 @@ export const updateProduct = async (req, res) => {
             await productService.updateProductService(product);      
             res.status(200).json(product);
         }else{
-            res.status(400);
+            res.status(400).send();
         }
     }catch(error){
-        res.status(500)
+        res.status(500).send()
     }
 };

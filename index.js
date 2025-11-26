@@ -2,8 +2,8 @@ import express from "express"
 import cors from "cors"
 import productroute from "./src/routes/products.routes.js"
 import authroute from "./src/routes/auth.routes.js"
-import 'dotenv/config';
 import { authentication } from "./src/middleware/authentication.js"
+import 'dotenv/config';
 
 const app = express()
 const PORT = process.env.PORT || 3000;
