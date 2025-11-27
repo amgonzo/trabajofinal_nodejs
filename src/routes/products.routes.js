@@ -6,7 +6,7 @@ import {
     deleteProductById,
     updateProduct
 } from "../controllers/products.controllers.js"
-import { authentication } from "./src/middleware/authentication.js"
+import { authentication } from "../middleware/authentication.js"
 
 const routes = express.Router()
 
