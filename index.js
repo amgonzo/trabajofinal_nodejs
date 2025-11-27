@@ -2,7 +2,6 @@ import express from "express"
 import cors from "cors"
 import productroute from "./src/routes/products.routes.js"
 import authroute from "./src/routes/auth.routes.js"
-import { authentication } from "./src/middleware/authentication.js"
 import 'dotenv/config';
 
 const app = express()
@@ -27,8 +26,6 @@ app.use((req, res, next) => {
 });
 
 app.use("/api", authroute)
-
-app.use(authentication);
 
 app.use("/api", productroute)
 
