@@ -60,7 +60,7 @@ export const addProduct = async (req, res) => {
     }
 };
 
-
+/*
 export const updateProduct = async (req, res) => {
     try{
         const { id, categoria, nombre, precio } = req.body; 
@@ -79,4 +79,4 @@ export const updateProduct = async (req, res) => {
     }catch(error){
         res.status(500).send()
     }
-};
+};*/

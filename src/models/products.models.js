@@ -66,7 +66,7 @@ export function agregarProducto(producto){
     })
   )
 }
-
+/*
 export function actualizarProducto(producto){
   return(
     new Promise(async (resolve, reject) => {
@@ -81,7 +81,7 @@ export function actualizarProducto(producto){
     })
   )
 }
-
+*/
 export async function borrarProducto(id){
   return new Promise(async (resolve, reject)=>{
       try{

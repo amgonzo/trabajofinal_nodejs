@@ -3,7 +3,7 @@ import {
   obtenerProducto,
   agregarProducto,
   borrarProducto,
-  actualizarProducto,
+  //actualizarProducto,
 
 } from "../models/products.models.js"
 
@@ -43,7 +43,7 @@ export const addProductService = async (producto) => {
       }
     })  
 )};
-
+/*
 export const updateProductService = async (producto) => {
   return(
     new Promise(async (resolve,reject)=> {
@@ -54,7 +54,7 @@ export const updateProductService = async (producto) => {
         reject(error);
       }
     })  
-)};
+)};*/
 
 export const deleteProductByIdService = async (id) => {
   return(
